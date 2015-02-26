@@ -1,15 +1,29 @@
-local KatarinaVersion = 1
+local KatarinaVersion = 1.1
+	local SCRIPT_NAME = GetCurrentEnv().FILE_NAME
 
-AddLoadCallback(function()
- if myHero.charName ~= 'Katarina' then return end
- --Requirements--
- require 'SxOrbWalk'
- --Initialize Katarina Class--
- Katarina()
-end)
+	AddLoadCallback(function()
+		local ServerResult = GetWebResult("raw.github.com","/BrynnClarke/BrynnClarkeRepo/master/Versions/Resetorina.version")
+		if ServerResult then
+			ServerVersion = tonumber(ServerResult)
+			if KatarinaVersion < ServerVersion then
+				Print("A new version is available: v"..ServerVersion..". Attempting to download now.")
+				DelayAction(function() DownloadFile("https://raw.githubusercontent.com/BrynnClarke/BrynnClarkeRepo/master/Resetarina.lua".."?rand"..math.random(1,9999), SCRIPT_PATH..SCRIPT_NAME, function() Print("Successfully downloaded the latest version: v"..ServerVersion..".") end) end, 1)
+			end
+		else
+			Print("Error finding server version.")
+		end
+	end)
 
-class 'Katarina'
 
+	AddLoadCallback(function()
+	 if myHero.charName ~= 'Katarina' then return end
+	 --Requirements--
+	 require 'SxOrbWalk'
+	 --Initialize Katarina Class--
+	 Katarina()
+	end)
+
+	class 'Katarina'
 	function Katarina:__init()
 
 		self.spells = {
@@ -43,9 +57,10 @@ class 'Katarina'
 		AddRemoveBuffCallback(function(unit, buff) self:RemoveBuff(unit, buff) end)
 		AddCastSpellCallback(function(iSpell, startPos, endPos, targetUnit) self:OnCastSpell(iSpell,startPos,endPos,targetUnit) end)
 
-		print("<font color=\"#ff0000\">Resetarino:</font> <font color=\"#00FF55\">Loaded Version: "..KatarinaVersion.."</font>")
+		Print("Loaded Version: "..KatarinaVersion)
 	end
 
+Print = function(m) print("<font color=\"#ff0000\">Resetarino:</font> <font color=\"#00FF55\">"..m.."</font>") end
 
 	function Katarina:Menu()
 
@@ -577,21 +592,4 @@ class 'Spells'
 	function Spells:SlotToString(slot)
 		local strings = { [_Q] = 'Q', [_W] = 'W', [_E] = 'E', [_R] = 'R'}
 		return strings[slot]
-	end
-	
-	
-	
-		local Version = 1
-	local ServerResult = GetWebResult("raw.github.com","/BrynnClarke/BrynnClarkeRepo/blob/master/Resetarina.lua")
-	print(ServerResult)
-	if ServerResult then
-		ServerVersion = tonumber(ServerResult)
-		if Version < ServerVersion then
-			print("A new version is available: v"..KatarinaVersion..". Attempting to download now.")
-			DelayAction(function() DownloadFile("https://github.com/BrynnClarke/BrynnClarkeRepo/blob/master/Resetarina.lua".."?rand"..math.random(1,9999), SCRIPT_PATH.."Restarina.lua", function() print("Successfully downloaded the latest version: v"..KatarinaVersion..".") end) end, 2)
-		else
-			print("You are running the latest version: v"..Version..".")
-		end
-	else
-		print("Error finding server version.")
 	end
