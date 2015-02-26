@@ -1,4 +1,4 @@
-local KatarinaVersion = 1
+local KatarinaVersion = 1.1
 
 AddLoadCallback(function()
  if myHero.charName ~= 'Katarina' then return end
@@ -581,7 +581,7 @@ class 'Spells'
 	
 	
 	
-		local Version = 1
+		local Version = 1.1
 	local ServerResult = GetWebResult("raw.github.com","")
 	print(ServerResult)
 	if ServerResult then
