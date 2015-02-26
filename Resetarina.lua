@@ -1,4 +1,4 @@
-local KatarinaVersion = 1.1
+local KatarinaVersion = 1
 
 AddLoadCallback(function()
  if myHero.charName ~= 'Katarina' then return end
@@ -581,14 +581,14 @@ class 'Spells'
 	
 	
 	
-		local Version = 1.1
-	local ServerResult = GetWebResult("raw.github.com","")
+		local Version = 1
+	local ServerResult = GetWebResult("raw.github.com","/BrynnClarke/BrynnClarkeRepo/blob/master/Resetarina.lua")
 	print(ServerResult)
 	if ServerResult then
 		ServerVersion = tonumber(ServerResult)
 		if Version < ServerVersion then
 			print("A new version is available: v"..KatarinaVersion..". Attempting to download now.")
-			DelayAction(function() DownloadFile("https://raw.githubusercontent.com/BrynnClarke/BoLScripts/master/Resetarina.lua".."?rand"..math.random(1,9999), SCRIPT_PATH.."SimpleTalon.lua", function() print("Successfully downloaded the latest version: v"..KatarinaVersion..".") end) end, 2)
+			DelayAction(function() DownloadFile("https://github.com/BrynnClarke/BrynnClarkeRepo/blob/master/Resetarina.lua".."?rand"..math.random(1,9999), SCRIPT_PATH.."Restarina.lua", function() print("Successfully downloaded the latest version: v"..KatarinaVersion..".") end) end, 2)
 		else
 			print("You are running the latest version: v"..Version..".")
 		end
